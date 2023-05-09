@@ -9,5 +9,5 @@ import (
 
 type MoviesRepoInterfaces interface{
 	LongestDurationMovies(pagenation utils.Filter)([]domain.MoviesResponse,utils.Metadata,error)
-
+	Addnewmovie(movie domain.Movies)(error)
 }

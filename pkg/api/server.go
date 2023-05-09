@@ -15,6 +15,10 @@ func NewServerHttp(movieHandler *handler.MoviesHandler) *ServerHttp {
 	//engine.Use(gin.Logger())
 	api := engine.Group("api/v1")
 	api.GET("/longest-duration-movies", movieHandler.LongestDurationMovies)
+	api.POST("/new-movie",movieHandler.Addnewmovie)
+	// api.GET("/top-rated-movies")
+	// api.GET("/genre-movies-with-subtotals")
+	// api.POST("/update-runtime-minutes")
 	return &ServerHttp{engine: engine}
 }
 func (s *ServerHttp) Start(cf config.Config) {
