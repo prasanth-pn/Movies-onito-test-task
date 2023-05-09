@@ -17,3 +17,7 @@ func (m *MovieUseCase)LongestDurationMovies(pagenation utils.Filter)([]domain.Mo
 	movies,metadata,err:=m.Repo.LongestDurationMovies(pagenation)
 	return movies,metadata,err
 }
+func(m *MovieUseCase)Addnewmovie(movie domain.Movies)(error){
+	err:=m.Repo.Addnewmovie(movie)
+	return err
+}

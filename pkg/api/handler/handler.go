@@ -4,6 +4,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/prasanth-pn/Movies-onito-test-task/pkg/domain"
 	"github.com/prasanth-pn/Movies-onito-test-task/pkg/usecase/interfaces"
 	"github.com/prasanth-pn/Movies-onito-test-task/pkg/utils"
 )
@@ -26,10 +27,31 @@ func (m *MoviesHandler) LongestDurationMovies(c *gin.Context) {
 		c.IndentedJSON(401, gin.H{
 			"error": "error happend while getting data",
 		})
+		return
 	}
 	c.IndentedJSON(200, gin.H{
 		"metadata":metadata,
 		"MovieList":movies,
 	})
 
+}
+func (m *MoviesHandler)Addnewmovie(c *gin.Context){
+	var movie domain.Movies
+
+	if err:=c.BindJSON(&movie);err!=nil{
+		c.IndentedJSON(401,gin.H{
+			"error":"errot geting input",
+		})
+	}
+	err:=m.moviusecase.Addnewmovie(movie)
+	if err!=nil{
+		c.IndentedJSON(401,gin.H{
+			"Error":"movie is not added",
+		})
+		return
+	}
+	c.IndentedJSON(201,gin.H{
+		"Message ":"SUCCESS",
+		"DATA":movie,
+	})
 }

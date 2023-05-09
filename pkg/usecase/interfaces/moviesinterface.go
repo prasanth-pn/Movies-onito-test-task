@@ -7,4 +7,5 @@ import (
 
 type MovieusecaseInterface interface {
 	LongestDurationMovies(pagenation utils.Filter) ([]domain.MoviesResponse,utils.Metadata, error)
+	Addnewmovie(movie domain.Movies)(error)
 }
