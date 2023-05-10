@@ -55,3 +55,58 @@ func (m *MoviesHandler)Addnewmovie(c *gin.Context){
 		"DATA":movie,
 	})
 }
+
+func (m *MoviesHandler)TopRatedMovies(c *gin.Context){
+	page,_:=strconv.Atoi(c.Query("page"))
+	pagenation:=utils.Filter{
+		Page: page,
+		PageSize: 10,
+	}
+	movies,metadata,err:=m.moviusecase.TopRatedMovies(pagenation)
+	if err!=nil{
+		c.IndentedJSON(401,gin.H{
+			"Error":"cant't get the toprated movies oops",
+		})
+	}
+c.IndentedJSON(200,gin.H{
+	"message":"SUCCESS",
+	"data":movies,
+	"metadata":metadata,
+})
+}
+
+
+func (m *MoviesHandler)MoviesWithSubTotal(c *gin.Context){
+page ,_:=strconv.Atoi(c.Query("page"))
+pagenation:=utils.Filter{
+	Page: page,
+	PageSize: 10,
+}
+movies,metadata,err:=m.moviusecase.GenreMoviesWithSubTotal(pagenation)
+if err!=nil{
+	c.JSON(401,gin.H{
+		"Error":"error when fetching the movies",
+	})
+	return 
+}
+
+	c.IndentedJSON(200,gin.H{
+		"message":"SUCCESS",
+		"DATA":movies,
+		"metadata":metadata,
+	})
+}
+func (m *MoviesHandler)UpdateRunTimeMinutes(c *gin.Context){
+	err:=m.moviusecase.UpdateRunTimeMinutes()
+	if err!=nil{
+		c.JSON(401,gin.H{
+			"Error":"the data is not updated",
+		})
+		return
+	}
+
+c.JSON(200,gin.H{
+	"message":"SUCCESS",
+	"Message":"suceesfully updated the time",
+})
+}

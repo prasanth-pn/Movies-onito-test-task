@@ -8,4 +8,7 @@ import (
 type MovieusecaseInterface interface {
 	LongestDurationMovies(pagenation utils.Filter) ([]domain.MoviesResponse,utils.Metadata, error)
 	Addnewmovie(movie domain.Movies)(error)
+	TopRatedMovies(pagenation utils.Filter)([]domain.TopRateResponse,utils.Metadata,error)
+	GenreMoviesWithSubTotal(pagenation utils.Filter)([]domain.SubtotalResponse,utils.Metadata,error)
+	UpdateRunTimeMinutes()(error)
 }
